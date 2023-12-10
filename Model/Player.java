@@ -12,6 +12,7 @@ public class Player {
         this.cards = new ArrayList<Card>();
     }
 
+
     public String getName() {
         return this.name;
     }
