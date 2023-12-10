@@ -8,6 +8,7 @@ import View.Menu;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Game {
     Scanner scanner = new Scanner(System.in);
@@ -22,28 +23,42 @@ public class Game {
         currentPlayer = 0;
     }
 
+    //Funcion para iniciar el juego y muestre los mensajes del menu
     public void init() {
+        System.out.println("***********************************************");
         Menu.printWelcomeMessage();
-        System.out.println("************************************************");
+        System.out.println("*****************************************************************************");
         Menu.printRules();
-        System.out.println("************************************************");
+        System.out.println("******************************************************************************");
         initPlayers();
         play();
     }
 
+    //Funcion para indicar los jugadores que van a jugar y mostrarlos por pantalla
     private void initPlayers() {
         Menu.printNumPlayers();
         int n = 0;
-        n = scanner.nextInt();
-        for (int i = 0; i < n; i++) {
-            Menu.playerName();
-            scanner = new Scanner(System.in);
-            String name = scanner.nextLine();
-            this.players.add(new Player(name));
-        }
-        if (n == 1) {
-            this.players.add(new Player("IA"));
-        }
+        do {
+            try {
+                n = scanner.nextInt();
+                if (n < 1 || n > 4) {
+                    System.out.println("Error en numero de jugadores, debe de ser entre 1 y 4");
+                }
+            } catch (InputMismatchException e) {
+                scanner.nextInt();
+                System.out.println("Introduzca un valor valido");
+                n = 0;
+            }
+            for (int i = 0; i < n; i++) {
+                Menu.playerName();
+                scanner = new Scanner(System.in);
+                String name = scanner.nextLine();
+                this.players.add(new Player(name));
+            }
+            if (n == 1) {
+                this.players.add(new Player("IA"));
+            }
+        } while (n >= 1 || n <= 4);
     }
 
     private void play() {
@@ -65,7 +80,7 @@ public class Game {
 
                 //La IA tiene que saber la puntuacion del jugador
                 int playerScore = calculateScore(players.get(i - 1));
-                Menu.printCurrentState(players.get(i),calculateScore(players.get(i)));
+                Menu.printCurrentState(players.get(i), calculateScore(players.get(i)));
 
                 //Si el jugador no se ha pasado
                 if (playerScore <= 21) {
@@ -73,9 +88,10 @@ public class Game {
                     //La IA coge cartas hasta superar al jugador o se pase de 21
                     while (calculateScore(players.get(i)) <= playerScore && calculateScore(players.get(i)) <= 21) {
                         this.players.get(i).addCard(this.deck.takeCard());
-                        Menu.printCurrentState(players.get(i),calculateScore(players.get(i)));
+                        Menu.printCurrentState(players.get(i), calculateScore(players.get(i)));
                     }
                 }
+                //Si jugamos contra otro jugador
             } else {
                 int playerScore = calculateScore(this.players.get(i));
                 if (playerScore > 21) {
@@ -84,6 +100,7 @@ public class Game {
                     boolean exitLoop = false;
                     do {
                         Menu.printCurrentState(this.players.get(i), playerScore);
+                        System.out.println("Elige una opcion: ");
                         System.out.println("1- Sacar una carta");
                         System.out.println("2- Plantarse");
                         int option = 0;
@@ -111,6 +128,7 @@ public class Game {
         }
     }
 
+    //Funcion para calcular la puntuacion del jugador
     private int calculateScore(Player p) {
         int score = 0;
         for (int i = 0; i < p.getCards().size(); i++) {
@@ -124,6 +142,7 @@ public class Game {
         return score;
     }
 
+    //Funcion que comprueba quien ha ganado
     private int checkWinnerPlayer() {
         //tenemos que buscar el jugador con la puntuacion mas alta sin pasarse de 21
         //Si todos los jugadores pierden sale -1
@@ -137,7 +156,6 @@ public class Game {
                 idex = i;
             }
         }
-
         return idex;
     }
 }

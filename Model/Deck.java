@@ -7,6 +7,7 @@ public class Deck {
     private List<Card> cards;
 
     public Deck() {
+        //Aqui esta la lista de todas las cartas del mazo
         cards = new ArrayList<Card>();
 
         cards.add(new Card(1, "A", "Spades"));
@@ -66,10 +67,12 @@ public class Deck {
         cards.add(new Card(10, "K", "Clubs"));
     }
 
+    //Barajar las cartas del mazo
     public void shuffle() {
         Collections.shuffle(cards);
     }
 
+    //Coger una carta y eliminarla del mazo
     public Card takeCard() {
         Card result = cards.get(0);
         cards.remove(0);
