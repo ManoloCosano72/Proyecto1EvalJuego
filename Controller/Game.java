@@ -13,15 +13,15 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     private List<Player> players;
     private Deck deck;
-    private int currentPlayer;
+
 
     public Game() {
         players = new ArrayList<Player>();
         deck = new Deck();
-        currentPlayer = 0;
+
     }
 
-    //Funcion para iniciar el juego y muestre los mensajes del menu
+    //Funcion para mostrar los mensajes de menu y inciar el juego y los jugadores
     public void init() {
         System.out.println("***********************************************");
         Menu.printWelcomeMessage();
@@ -35,7 +35,11 @@ public class Game {
     //Funcion para indicar los jugadores que van a jugar y mostrarlos por pantalla
     private void initPlayers() {
         Menu.printNumPlayers();
+
+        //Aqui se indica los jugadores que van a jugar
         int nPlayer = 0;
+
+        //Aqui esta el control de errores que nos dira que valores no son validos para poder jugar
         do {
             try {
                 nPlayer = scanner.nextInt();
@@ -43,36 +47,43 @@ public class Game {
                     System.out.println("Error en numero de jugadores, debe de ser entre 1 y 4");
                 }
             } catch (InputMismatchException e) {
-                scanner.nextInt();
                 System.out.println("Introduzca un valor valido");
-                nPlayer = 0;
+                scanner.nextLine();
             }
 
         } while (nPlayer < 1 || nPlayer > 4);
         for (int i = 0; i < nPlayer; i++) {
             String playerName;
-            boolean nameValid = true;
-
+            boolean nameValid = false;
             Menu.playerName();
 
-            if (nPlayer == 1) {
-                this.players.add(new Player("IA"));
-            } else {
-                do {
-                    scanner = new Scanner(System.in);
-                    playerName = scanner.nextLine().trim();
+            //Control de errores de los nombres, si ponemos algunos de los valores no permitidos no podremos continuar
+            do {
+                scanner = new Scanner(System.in);
+                playerName = scanner.nextLine().trim();
+                nameValid=true;
 
-                    if (playerName.equalsIgnoreCase("IA")) {
-                        nameValid = false;
-                        System.out.println("Error de nombre, no puedes llamarte 'IA', escribe de nuevo: ");
-                    } else if (playerName.isEmpty() || playerName.isBlank()) {
-                        nameValid = false;
-                        System.out.println("Error de nombre, no puedes escribir el nombre vacío o solo espacios, escribe de nuevo: ");
+                if (playerName.equalsIgnoreCase("IA")) {
+                    nameValid = false;
+                    System.out.println("Error de nombre, no puedes llamarte 'IA', escribe de nuevo: ");
+                } else if (playerName.isEmpty() || playerName.isBlank()) {
+                    nameValid = false;
+                    System.out.println("Error de nombre, no puedes escribir el nombre vacío o solo espacios, escribe de nuevo: ");
+                } else {
+                    for (int j=0;j<players.size();j++){
+                        if(players.get(j).getName().equalsIgnoreCase(playerName)){
+                            System.out.println("Error de nombre, no puedes llamarte igual que otro jugador registrado. Escribe de nuevo: ");
+                            nameValid= false;
+                            break;
+                        }
                     }
-                } while (!nameValid);
-                this.players.add(new Player(playerName));
-            }
-
+                }
+            } while (!nameValid);
+            this.players.add(new Player(playerName));
+        }
+        //Se ejecuta cuando solo jugamos contra la IA, se añade la IA como jugador
+        if (nPlayer == 1) {
+            this.players.add(new Player("IA"));
         }
 
     }
@@ -137,12 +148,8 @@ public class Game {
 
         //4-Decir que jugador ha ganado de todos
         System.out.println("***************************************************");
-        int winnerIndex = checkWinnerPlayer();
-        if (winnerIndex == -1) {
-            System.out.println("Todos los jugadores han perdido");
-        } else {
-            System.out.println("El jugador " + players.get(winnerIndex).getName() + " ha ganado el juego!!!");
-        }
+        List<Player> winners= checkWinnerPlayer();
+        Menu.printWinnerPlayer(winners);
     }
 
     //Funcion para calcular la puntuacion del jugador
@@ -160,20 +167,24 @@ public class Game {
     }
 
     //Funcion que comprueba quien ha ganado
-    private int checkWinnerPlayer() {
+    private List<Player> checkWinnerPlayer() {
         //tenemos que buscar el jugador con la puntuacion mas alta sin pasarse de 21
         //Si todos los jugadores pierden sale -1
+        List<Player> result = new ArrayList<Player>();
         int max = -1;
-        int idex = -1;
         for (int i = 0; i < players.size(); i++) {
             int score = calculateScore(players.get(i));
             score = score > 21 ? -1 : score;
             if (score > max) {
+                result.clear();
                 max = score;
-                idex = i;
+                result.add(players.get(i));
+                //Comprobar si hay empate
+            } else if (score ==max && max > -1) {
+                result.add(players.get(i));
             }
         }
-        return idex;
+        return result;
     }
 }
 

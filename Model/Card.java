@@ -26,15 +26,15 @@ public class Card {
 
     @Override
     public String toString() {
-         return"╔════════╗\n" + "  ║ " + display + "      ║\n" + "  ║        ║\n" + "  ║   " + suit + "    ║\n" + "  ║        ║\n" + "  ║      " + display+ " ║\n" + "  ╚════════╝";
+        return "  ╔════════╗\n"
+                + "  ║ " + display + "      ║\n"
+                + "  ║        ║\n"
+                + "  ║   " + suit + "    ║\n"
+                + "  ║        ║\n"
+                + "  ║      " + display + " ║\n"
+                + "  ╚════════╝";
 
     }
-
-    /*@Override
-    public String toString() {
-        return "Suit: " + suit + " Value: " + value;
-    }
-    */
 
     /*@Override
     public boolean equals(Objects o) {
@@ -44,4 +44,4 @@ public class Card {
         return value == card.value && Objects.equals(suit, card.suit);
     }
     */
-    }
+}
