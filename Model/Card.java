@@ -26,14 +26,9 @@ public class Card {
 
     @Override
     public String toString() {
-            return "╔════════╗\n" +
-                    "║ " + value + "      ║\n" +
-                    "║        ║\n" +
-                    "║   " + suit + "    ║\n" +
-                    "║        ║\n" +
-                    "║      " + value + " ║\n" +
-                    "╚════════╝";
-        }
+         return"╔════════╗\n" + "  ║ " + display + "      ║\n" + "  ║        ║\n" + "  ║   " + suit + "    ║\n" + "  ║        ║\n" + "  ║      " + display+ " ║\n" + "  ╚════════╝";
+
+    }
 
     /*@Override
     public String toString() {

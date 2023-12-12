@@ -16,12 +16,11 @@ public class Menu {
 
     //Funcion que muestra las reglas del juego
     public static void printRules(){
-        System.out.println("-Las reglas del juego son las siguientes: ");
+        System.out.println("Las reglas del juego son las siguientes: ");
         System.out.println("-Cada jugador comienza con 2 cartas");
         System.out.println("-Pueden sacar una carta hasta que se planten o superen 21 puntos en total");
         System.out.println("-El ganador es el que se acerque mas a 21 sin superarlo");
         System.out.println("-Las cartas J, Q y K valen 10 mientras que el As vale 1 u 11 segun lo que sea mas beneficioso para el jugador al momento de sacar carta");
-
     }
 
     //Funcion que nos muestra el mensaje para indicar los jugadores

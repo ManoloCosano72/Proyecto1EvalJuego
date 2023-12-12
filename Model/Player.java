@@ -21,6 +21,7 @@ public class Player {
         return this.cards;
     }
 
+    //Le da una carta al jugador
     public void addCard(Card card) {
         this.cards.add(card);
     }

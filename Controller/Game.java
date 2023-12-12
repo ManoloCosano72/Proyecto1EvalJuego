@@ -1,21 +1,19 @@
 package Controller;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
 import Model.Deck;
 import Model.Player;
 import View.Menu;
-
-import java.util.List;
-import java.util.Scanner;
-import java.util.InputMismatchException;
 
 public class Game {
     Scanner scanner = new Scanner(System.in);
     private List<Player> players;
     private Deck deck;
     private int currentPlayer;
-    private int score;
 
     public Game() {
         players = new ArrayList<Player>();
@@ -37,29 +35,48 @@ public class Game {
     //Funcion para indicar los jugadores que van a jugar y mostrarlos por pantalla
     private void initPlayers() {
         Menu.printNumPlayers();
-        int n = 0;
+        int nPlayer = 0;
         do {
             try {
-                n = scanner.nextInt();
-                if (n < 1 || n > 4) {
+                nPlayer = scanner.nextInt();
+                if (nPlayer < 1 || nPlayer > 4) {
                     System.out.println("Error en numero de jugadores, debe de ser entre 1 y 4");
                 }
             } catch (InputMismatchException e) {
                 scanner.nextInt();
                 System.out.println("Introduzca un valor valido");
-                n = 0;
+                nPlayer = 0;
             }
-            for (int i = 0; i < n; i++) {
-                Menu.playerName();
-                scanner = new Scanner(System.in);
-                String name = scanner.nextLine();
-                this.players.add(new Player(name));
-            }
-            if (n == 1) {
+
+        } while (nPlayer < 1 || nPlayer > 4);
+        for (int i = 0; i < nPlayer; i++) {
+            String playerName;
+            boolean nameValid = true;
+
+            Menu.playerName();
+
+            if (nPlayer == 1) {
                 this.players.add(new Player("IA"));
+            } else {
+                do {
+                    scanner = new Scanner(System.in);
+                    playerName = scanner.nextLine().trim();
+
+                    if (playerName.equalsIgnoreCase("IA")) {
+                        nameValid = false;
+                        System.out.println("Error de nombre, no puedes llamarte 'IA', escribe de nuevo: ");
+                    } else if (playerName.isEmpty() || playerName.isBlank()) {
+                        nameValid = false;
+                        System.out.println("Error de nombre, no puedes escribir el nombre vacío o solo espacios, escribe de nuevo: ");
+                    }
+                } while (!nameValid);
+                this.players.add(new Player(playerName));
             }
-        } while (n >= 1 || n <= 4);
+
+        }
+
     }
+
 
     private void play() {
         //1-Barajar las cartas del mazo
@@ -79,7 +96,7 @@ public class Game {
             if (players.get(i).getName().equals("IA")) {
 
                 //La IA tiene que saber la puntuacion del jugador
-                int playerScore = calculateScore(players.get(i - 1));
+                int playerScore = calculateScore(players.get(i-1));
                 Menu.printCurrentState(players.get(i), calculateScore(players.get(i)));
 
                 //Si el jugador no se ha pasado
@@ -159,4 +176,5 @@ public class Game {
         return idex;
     }
 }
+
 
