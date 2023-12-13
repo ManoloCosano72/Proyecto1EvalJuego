@@ -7,11 +7,11 @@ public class Player {
     private String name;
     private List<Card> cards;
 
+    //El jugador posee un nombre y despues recibira una lista de cartas al inicio y si continua o no
     public Player(String name) {
         this.name = name;
         this.cards = new ArrayList<Card>();
     }
-
 
     public String getName() {
         return this.name;
@@ -24,9 +24,5 @@ public class Player {
     //Le da una carta al jugador
     public void addCard(Card card) {
         this.cards.add(card);
-    }
-
-    public void clearCards() {
-        this.cards.clear();
     }
 }

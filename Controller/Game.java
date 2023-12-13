@@ -89,6 +89,7 @@ public class Game {
     }
 
 
+
     private void play() {
         //1-Barajar las cartas del mazo
         this.deck.shuffle();
@@ -187,5 +188,3 @@ public class Game {
         return result;
     }
 }
-
-

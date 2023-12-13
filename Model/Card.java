@@ -5,7 +5,7 @@ public class Card {
     private String display;
     private String suit;
 
-
+    //
     public Card(int value, String display, String suit) {
         this.value = value;
         this.display = display;
@@ -16,14 +16,7 @@ public class Card {
         return value;
     }
 
-    public String getDisplay() {
-        return display;
-    }
-
-    public String getSuit() {
-        return suit;
-    }
-
+    //El diseño de la carta que se imprimira por pantalla al jugar
     @Override
     public String toString() {
         return "  ╔════════╗\n"
@@ -35,13 +28,4 @@ public class Card {
                 + "  ╚════════╝";
 
     }
-
-    /*@Override
-    public boolean equals(Objects o) {
-        if (this == 0) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-        return value == card.value && Objects.equals(suit, card.suit);
-    }
-    */
 }

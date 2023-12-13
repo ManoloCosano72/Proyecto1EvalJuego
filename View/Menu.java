@@ -15,7 +15,20 @@ public class Menu {
 
     //Funcion que mostrara el mensaje de bienvenida al inciar
     public static void printWelcomeMessage() {
-        System.out.println("Bienvenidos al casino de Manolo 🤑🤑🤑");
+        System.out.println(
+                "   ____          _        ____   _______      ___   ____               ___                ___       ___       _      ___      ______      ___   ____    ____        ____    \n" +
+                "  6MMMMb/       dM.      6MMMMb\\ `MM'`MM\\     `M'  6MMMMb              `MM                `MMb     dMM'      dM.     `MM\\     `M'`MM\\     `M'  6MMMMb   `MM'       6MMMMb   \n" +
+                " 8P    YM      ,MMb     6M'    `  MM  MMM\\     M  8P    Y8              MM                 MMM.   ,PMM      ,MMb      MMM\\     M  MMM\\     M  8P    Y8   MM       8P    Y8  \n" +
+                "6M      Y      d'YM.    MM        MM  M\\MM\\    M 6M      Mb         ____MM   ____          M`Mb   d'MM      d'YM.     M\\MM\\    M  M\\MM\\    M 6M      Mb  MM      6M      Mb \n" +
+                "MM            ,P `Mb    YM.       MM  M \\MM\\   M MM      MM        6MMMMMM  6MMMMb         M YM. ,P MM     ,P `Mb     M \\MM\\   M  M \\MM\\   M MM      MM  MM      MM      MM \n" +
+                "MM            d'  YM.    YMMMMb   MM  M  \\MM\\  M MM      MM       6M'  `MM 6M'  `Mb        M `Mb d' MM     d'  YM.    M  \\MM\\  M  M  \\MM\\  M MM      MM  MM      MM      MM \n" +
+                "MM           ,P   `Mb        `Mb  MM  M   \\MM\\ M MM      MM       MM    MM MM    MM        M  YM.P  MM    ,P   `Mb    M   \\MM\\ M  M   \\MM\\ M MM      MM  MM      MM      MM \n" +
+                "MM           d'    YM.        MM  MM  M    \\MM\\M MM      MM       MM    MM MMMMMMMM        M  `Mb'  MM    d'    YM.   M    \\MM\\M  M    \\MM\\M MM      MM  MM      MM      MM \n" +
+                "YM      6   ,MMMMMMMMb        MM  MM  M     \\MMM YM      M9       MM    MM MM              M   YP   MM   ,MMMMMMMMb   M     \\MMM  M     \\MMM YM      M9  MM      YM      M9 \n" +
+                " 8b    d9   d'      YM. L    ,M9  MM  M      \\MM  8b    d8        YM.  ,MM YM    d9        M   `'   MM   d'      YM.  M      \\MM  M      \\MM  8b    d8   MM    /  8b    d8  \n" +
+                "  YMMMM9  _dM_     _dMM_MYMMMM9  _MM__M_      \\M   YMMMM9          YMMMMMM_ YMMMM9        _M_      _MM__dM_     _dMM__M_      \\M _M_      \\M   YMMMM9   _MMMMMMM   YMMMM9   \n" +
+                "                                                                                                                                                                            ");
+        System.out.println("Bienvenidos al CASINO de Manolo 🤑🤑🤑");
     }
 
     //Funcion que muestra las reglas del juego
